@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-WORKSPACE="/workspaces/project_name"
+# Initialize git repository using this template and
+# replace `devcontainers/python` with the project directory name
+WORKSPACE="/workspaces/devcontainers/python"
 
 # Git Setup
 git config --global safe.directory ${WORKSPACE}

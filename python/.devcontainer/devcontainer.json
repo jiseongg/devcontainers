@@ -41,6 +41,9 @@
       }
     }
   },
+  // Remove `python` subpath after initialize git repository
+  // with this template
   "postCreateCommand": "./install_deps.sh",
-  "postStartCommand": "./dev_setup.sh"
+  // Remove comment after setup
+  // "postStartCommand": "./dev_setup.sh"
 }

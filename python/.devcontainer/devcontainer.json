@@ -1,0 +1,46 @@
+{
+  "name": "Sample Project Providing Dev Containers",
+  "image": "mcr.microsoft.com/devcontainers/python:1-3.10-bullseye",
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": true,
+      "configureZshAsDefaultShell": true,
+      "installOhMyZsh": true,
+      "installOhMyZshConfig": true,
+      "upgradePackages": true,
+      "username": "automatic",
+      "userUid": "automatic",
+      "userGid": "automatic"
+    },
+    "ghcr.io/devcontainers/features/docker-in-docker": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.black-formatter",
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.isort",
+        "tamasfe.even-better-toml",
+        "atlassian.atlascode"
+      ],
+      "settings": {
+        "python.languageServer": "Pylance",
+        "python.analysis.typeCheckingMode": "strict",
+        "python.analysis.autoImportCompletions": true,
+        "[python]": {
+          "editor.defaultFormatter": "ms-python.black-formatter",
+          "editor.formatOnSave": true,
+          "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+          }
+        },
+        "python.testing.pytestArgs": ["tests"],
+        "python.testing.unittestEnabled": false,
+        "python.testing.pytestEnabled": true
+      }
+    }
+  },
+  "postCreateCommand": "./install_deps.sh",
+  "postStartCommand": "./dev_setup.sh"
+}

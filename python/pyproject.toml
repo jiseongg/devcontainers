@@ -1,0 +1,106 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "project"
+dynamic = ["version"]
+description = "sample project"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+  { name = "Jiseong Bak", email = "jiseongg301@gmail.com" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = [
+  "hatch == 1.7.0",
+]
+dev-dependencies = [
+  "pytest == 7.4.3",
+  "toml == 0.10.2",
+]
+
+[project.urls]
+Documentation = "https://github.com/jiseongg/devcontainers"
+Source = "https://github.com/jiseongg/devcontainers"
+
+[tool.hatch.version]
+path = "root_package/__about__.py"
+
+[tool.hatch.envs.test]
+dependencies = [
+  "coverage[toml]>=6.5",
+  "pytest",
+]
+[tool.hatch.envs.test.scripts]
+test-cov = "coverage run -m pytest {args:tests}"
+cov-report = [
+  "- coverage combine",
+  "coverage report",
+]
+all = [
+  "test-cov",
+  "cov-report",
+]
+[[tool.hatch.envs.test.matrix]]
+python = ["3.11"]
+
+[tool.hatch.envs.lint]
+detached = true
+dependencies = [
+  "black>=23.1.0",
+  "mypy>=1.0.0",
+  "isort>=5.12.0",
+  "pylint>=3.0.0",
+]
+[tool.hatch.envs.lint.scripts]
+typing = "mypy --install-types --check-untyped-defs --ignore-missing-imports --non-interactive {args:root_package tests}"
+style = [
+  "black --check --diff {args:.}",
+  "isort --check-only --diff {args:.} --wrap-length 79",
+  "pylint -d all -e W0611,W0612,W0613 {args:.}",
+]
+all = [
+  "style",
+  "typing"
+]
+[[tool.hatch.envs.lint.matrix]]
+python = ["3.10"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["root_package"]
+
+[tool.black]
+target-version = ["py310"]
+line-length = 79
+skip-string-normalization = true
+
+[tool.coverage.run]
+branch = true
+parallel = true
+omit = [
+  "root_package/__about__.py",
+  "tests/**",
+]
+
+[tool.coverage.paths]
+root_package = ["root_package"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
+
+[tool.isort]
+multi_line_output = 3
+line_length = 79
+wrap_length = 79
+include_trailing_comma = true

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+staged_files=$(git diff-index --diff-filter='AMR' --cached --name-only HEAD "*.py" | tr -s '\n' ' ')
+if [[ ! -z $staged_files ]]; then
+  hatch clean
+  hatch run lint:all $staged_files 
+fi

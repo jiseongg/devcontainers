@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+script_dir=$(cd $(dirname $0); pwd)
+source $script_dir/common.sh
+
+branch=$(git symbolic-ref --short HEAD 2>/dev/null || echo "")
+if [[ ! -z $branch ]]; then 
+  git fetch origin main >/dev/null 2>&1
+  if [[ ! -z $(git diff $(git merge-base HEAD origin/main) origin/main) ]]; then
+    echo -e "${WARN} Merge base is not synced with \`origin/main\`"
+    echo -e "${WARN} Run following command before starting next tasks. ${NC}"
+    echo -e "${WARN} ${NC}" 
+    echo -e "${WARN}     git checkout main && git reset --hard origin/main ${NC}"
+    echo -e "${WARN}     git checkout $branch ${NC}"
+    echo -e "${WARN}     git rebase main ${NC}"
+  fi
+fi 

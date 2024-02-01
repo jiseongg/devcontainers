@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+current_branch=$(git branch --show-current)
+remote_branch="origin/${current_branch}"
+
+staged_files=$(git diff --diff-filter='ADMR' --name-only $remote_branch $current_branch "*.cs" | tr -s '\n' ' ')
+if [[ ! -z $staged_files ]]; then
+fi

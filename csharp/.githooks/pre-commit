@@ -2,4 +2,5 @@
 
 staged_files=$(git diff-index --diff-filter='AMR' --cached --name-only HEAD "*.cs" | tr -s '\n' ' ')
 if [[ ! -z $staged_files ]]; then
+    echo "Running Linter..."
 fi

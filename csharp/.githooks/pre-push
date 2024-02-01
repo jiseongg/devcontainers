@@ -5,4 +5,5 @@ remote_branch="origin/${current_branch}"
 
 staged_files=$(git diff --diff-filter='ADMR' --name-only $remote_branch $current_branch "*.cs" | tr -s '\n' ' ')
 if [[ ! -z $staged_files ]]; then
+    echo "Running Test..."
 fi

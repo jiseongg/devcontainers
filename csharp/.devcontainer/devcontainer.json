@@ -18,8 +18,7 @@
     "vscode": {
       "settings": {},
       "extensions": [
-        "ms-dotnettools.csdevkit",
-        "streetsidesoftware.code-spell-checker"
+        "ms-dotnettools.csdevkit"
       ]
     }
   },
